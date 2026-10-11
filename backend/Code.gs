@@ -648,20 +648,48 @@ function getConfigLists(ss) {
 
 function manageConfigList(ss, adminEmail, role, category, value, operation) {
   if (String(role).toLowerCase() !== "admin") return { success: false, message: "Admin authorization required" };
+  category = String(category || "").trim();
+  value = String(value || "").trim();
+  operation = String(operation || "").trim().toLowerCase();
+  if (category !== "JobType" && category !== "Department") {
+    return { success: false, message: "Invalid configuration category" };
+  }
+  if (!value) return { success: false, message: "A value is required" };
+  if (operation !== "add" && operation !== "delete") {
+    return { success: false, message: "Invalid operation" };
+  }
+
   var sheet = ss.getSheetByName(CONFIG.CONFIG_LISTS_SHEET);
   var data = sheet.getDataRange().getValues();
+  var matchingRow = -1;
+  var matchingRowActive = false;
+  for (var i = 1; i < data.length; i++) {
+    if (String(data[i][0] || "").trim() === category &&
+        String(data[i][1] || "").trim().toLowerCase() === value.toLowerCase()) {
+      if (String(data[i][2] || "").toUpperCase() === "TRUE") {
+        matchingRow = i + 1;
+        matchingRowActive = true;
+        break;
+      }
+      if (matchingRow === -1) matchingRow = i + 1;
+    }
+  }
 
   if (operation === "add") {
+    if (matchingRow !== -1) {
+      if (matchingRowActive) return { success: false, message: "This item already exists" };
+      sheet.getRange(matchingRow, 3).setValue("TRUE");
+      logAudit(ss, adminEmail, "CONFIG_LIST_ADDED", category + ": " + value);
+      return { success: true, message: "Item added successfully" };
+    }
     sheet.appendRow([category, value, "TRUE"]);
     logAudit(ss, adminEmail, "CONFIG_LIST_ADDED", category + ": " + value);
     return { success: true, message: "Item added successfully" };
   } else if (operation === "delete") {
-    for (var i = 1; i < data.length; i++) {
-      if (String(data[i][0] || "") === category && String(data[i][1] || "") === value) {
-        sheet.deleteRow(i + 1);
-        logAudit(ss, adminEmail, "CONFIG_LIST_DELETED", category + ": " + value);
-        return { success: true, message: "Item deleted successfully" };
-      }
+    if (matchingRow !== -1 && matchingRowActive) {
+      sheet.getRange(matchingRow, 3).setValue("FALSE");
+      logAudit(ss, adminEmail, "CONFIG_LIST_DELETED", category + ": " + value);
+      return { success: true, message: "Item removed successfully" };
     }
   }
   return { success: false, message: "Item not found or invalid operation" };

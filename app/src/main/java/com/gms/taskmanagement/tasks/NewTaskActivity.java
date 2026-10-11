@@ -165,7 +165,7 @@ public class NewTaskActivity extends AppCompatActivity {
                 if (response.isSuccess() && response.getData() != null) {
                     JSONObject data = response.getData();
                     JSONArray jobs = data.optJSONArray("jobTypes");
-                    if (jobs != null && jobs.length() > 0) {
+                    if (jobs != null) {
                         jobTypeList.clear();
                         for (int i = 0; i < jobs.length(); i++) {
                             jobTypeList.add(jobs.optString(i));
@@ -174,7 +174,7 @@ public class NewTaskActivity extends AppCompatActivity {
                     }
 
                     JSONArray depts = data.optJSONArray("departments");
-                    if (depts != null && depts.length() > 0) {
+                    if (depts != null) {
                         departmentList.clear();
                         for (int i = 0; i < depts.length(); i++) {
                             departmentList.add(depts.optString(i));

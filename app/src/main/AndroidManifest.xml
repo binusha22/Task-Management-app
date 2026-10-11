@@ -76,6 +76,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".settings.ConfigListActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".notifications.NotificationActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

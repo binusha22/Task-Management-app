@@ -39,6 +39,7 @@ import com.gms.taskmanagement.reports.ReportsActivity;
 import com.gms.taskmanagement.settings.SettingsActivity;
 import com.gms.taskmanagement.tasks.NewTaskActivity;
 import com.gms.taskmanagement.tasks.TaskDetailActivity;
+import com.gms.taskmanagement.settings.ConfigListActivity;
 import com.gms.taskmanagement.users.UserManagementActivity;
 import com.gms.taskmanagement.utils.Constants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -55,6 +56,7 @@ public class AdminDashboardActivity extends AppCompatActivity implements PopupMe
     private FrameLayout btnNotification;
     private ImageView btnProfileMenu;
     private Button btnQuickUsers, btnQuickReports, btnQuickEditRequests, btnQuickSettings;
+    private Button btnQuickConfigLists;
     private EditText etAdminSearchTasks;
     private Spinner spAdminFilterStatus;
     private SwipeRefreshLayout adminSwipeRefreshLayout;
@@ -126,6 +128,7 @@ public class AdminDashboardActivity extends AppCompatActivity implements PopupMe
 
         btnQuickUsers = findViewById(R.id.btnQuickUsers);
         btnQuickReports = findViewById(R.id.btnQuickReports);
+        btnQuickConfigLists = findViewById(R.id.btnQuickConfigLists);
         btnQuickEditRequests = findViewById(R.id.btnQuickEditRequests);
         btnQuickSettings = findViewById(R.id.btnQuickSettings);
 
@@ -151,6 +154,7 @@ public class AdminDashboardActivity extends AppCompatActivity implements PopupMe
     private void setupQuickActions() {
         btnQuickUsers.setOnClickListener(v -> startActivity(new Intent(this, UserManagementActivity.class)));
         btnQuickReports.setOnClickListener(v -> startActivity(new Intent(this, ReportsActivity.class)));
+        btnQuickConfigLists.setOnClickListener(v -> startActivity(new Intent(this, ConfigListActivity.class)));
         btnQuickSettings.setOnClickListener(v -> startActivity(new Intent(this, SettingsActivity.class)));
         btnQuickEditRequests.setOnClickListener(v -> {
             Toast.makeText(this, "Showing Pending Edit Requests", Toast.LENGTH_SHORT).show();
