@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="accent">#0E9F6E</color>
+    <color name="background">#F9FAFB</color>
+    <color name="black">#000000</color>
+    <color name="border">#E5E7EB</color>
+    <color name="divider">#F3F4F6</color>
+    <color name="primary">#1A56DB</color>
+    <color name="primary_dark">#1E429F</color>
+    <color name="primary_light">#EBF5FF</color>
+    <color name="status_completed">#10B981</color>
+    <color name="status_completed_bg">#D1FAE5</color>
+    <color name="status_inprogress">#3B82F6</color>
+    <color name="status_inprogress_bg">#DBEAFE</color>
+    <color name="status_pending">#F59E0B</color>
+    <color name="status_pending_bg">#FEF3C7</color>
+    <color name="status_rejected">#EF4444</color>
+    <color name="status_rejected_bg">#FEE2E2</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="text_hint">#9CA3AF</color>
+    <color name="text_primary">#111928</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="white">#FFFFFF</color>
+    <string name="admin_dashboard">Admin Dashboard</string>
+    <string name="app_name">Task Management</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear">Clear</string>
+    <string name="date_of_perform">Date of Perform</string>
+    <string name="department">Department</string>
+    <string name="description">Description of Task</string>
+    <string name="email">Email Address</string>
+    <string name="employee_name">Employee Name</string>
+    <string name="filter">Filter</string>
+    <string name="job_type">Job Type</string>
+    <string name="login">Sign In</string>
+    <string name="login_subtitle">Sign in to manage your tasks</string>
+    <string name="login_title">Welcome Back</string>
+    <string name="logout">Sign Out</string>
+    <string name="my_profile">My Profile</string>
+    <string name="new_task">New Task</string>
+    <string name="password">Password</string>
+    <string name="save">Save</string>
+    <string name="search">Search</string>
+    <string name="select_employee">Select Employee</string>
+    <string name="settings">Settings</string>
+    <string name="setup_subtitle">Configure backend and spreadsheet</string>
+    <string name="setup_title">System Setup</string>
+    <string name="status">Status</string>
+    <string name="ticket_number">Ticket Number</string>
+    <string name="user_dashboard">Employee Dashboard</string>
+    <style name="Theme.GMSTaskManagement" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@color/primary_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

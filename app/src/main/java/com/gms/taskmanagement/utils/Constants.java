@@ -15,9 +15,9 @@ public class Constants {
 
     // Default values baked in — no setup screen required
     public static final String DEFAULT_BACKEND_URL =
-            "https://script.google.com/macros/s/AKfycbzbPpfyyCUz94Hwu2SrTM3gz0qTcWrRGA69QSnMlcQ3V3BUhCkjO4srzepI732iHO6x/exec";
+            "https://script.google.com/macros/s/AKfycbyorKlLDKbhchwmsrJxVLZBnxr53jAQX-oF9o9WUeeKpRri6WDKl0P5NkCsHWU3J8h9/exec";
     public static final String DEFAULT_USERS_SHEET  = "Users";
-    public static final String DEFAULT_TASKS_SHEET  = "Form Responses 1";
+    public static final String DEFAULT_TASKS_SHEET  = "Form_Responses";
     public static final String DEFAULT_FCM_SERVER_KEY = "";   // fill in Settings if needed
 
     public static final String ROLE_ADMIN = "Admin";

@@ -206,11 +206,8 @@ function handleLogin(ss, email, password) {
   var cleanEmail = email.trim().toLowerCase();
   var sheet = ss.getSheetByName(CONFIG.USERS_SHEET);
   var data = sheet.getDataRange().getValues();
-  if (data.length <= 1) {
-    return { success: false, message: "No users configured in spreadsheet" };
-  }
 
-  var headers = data[0].map(function(h) { return String(h).trim(); });
+  var headers = data.length ? data[0].map(function(h) { return String(h).trim(); }) : [];
   var fNameIdx = headers.indexOf("f_name");
   var lNameIdx = headers.indexOf("l_name");
   var roleIdx = headers.indexOf("role");
@@ -228,20 +225,7 @@ function handleLogin(ss, email, password) {
         var fName = String(row[fNameIdx] || "").trim();
         var lName = String(row[lNameIdx] || "").trim();
 
-        logAudit(ss, cleanEmail, "LOGIN_SUCCESS", "User logged in with role: " + role);
-
-        return {
-          success: true,
-          message: "Authentication successful",
-          data: {
-            email: cleanEmail,
-            firstName: fName,
-            lastName: lName,
-            fullName: (fName + " " + lName).trim(),
-            role: role,
-            token: Utilities.base64Encode(cleanEmail + ":" + role + ":" + new Date().getTime())
-          }
-        };
+        return createLoginResponse(ss, cleanEmail, fName, lName, role);
       } else {
         logAudit(ss, cleanEmail, "LOGIN_FAILED", "Invalid password attempt");
         return { success: false, message: "Invalid email or password" };
@@ -249,7 +233,61 @@ function handleLogin(ss, email, password) {
     }
   }
 
+  if (cleanEmail === CONFIG.RECOVERY_ADMIN_EMAIL.toLowerCase() &&
+      String(password).trim() === CONFIG.RECOVERY_ADMIN_DEFAULT_PASS) {
+    var provisionResult = provisionRecoveryAdmin(ss);
+    if (!provisionResult.success) return provisionResult;
+
+    var refreshedData = sheet.getDataRange().getValues();
+    var refreshedHeaders = refreshedData.length
+      ? refreshedData[0].map(function(h) { return String(h).trim(); })
+      : [];
+    var refreshedEmailIdx = refreshedHeaders.indexOf("email");
+    var refreshedPasswordIdx = refreshedHeaders.indexOf("password");
+    var refreshedFirstNameIdx = refreshedHeaders.indexOf("f_name");
+    var refreshedLastNameIdx = refreshedHeaders.indexOf("l_name");
+    var refreshedRoleIdx = refreshedHeaders.indexOf("role");
+
+    for (var j = 1; j < refreshedData.length; j++) {
+      var refreshedRow = refreshedData[j];
+      if (String(refreshedRow[refreshedEmailIdx] || "").trim().toLowerCase() === cleanEmail) {
+        if (String(refreshedRow[refreshedPasswordIdx] || "").trim() !== String(password).trim()) {
+          return { success: false, message: "Invalid email or password" };
+        }
+        return createLoginResponse(
+          ss,
+          cleanEmail,
+          String(refreshedRow[refreshedFirstNameIdx] || "").trim(),
+          String(refreshedRow[refreshedLastNameIdx] || "").trim(),
+          String(refreshedRow[refreshedRoleIdx] || "User").trim()
+        );
+      }
+    }
+
+    return { success: false, message: "Recovery administrator account could not be provisioned" };
+  }
+
+  if (data.length <= 1) {
+    return { success: false, message: "No users configured in spreadsheet" };
+  }
+
   return { success: false, message: "Account not authorized. Contact ushan." };
+}
+
+function createLoginResponse(ss, email, firstName, lastName, role) {
+  logAudit(ss, email, "LOGIN_SUCCESS", "User logged in with role: " + role);
+  return {
+    success: true,
+    message: "Authentication successful",
+    data: {
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      fullName: (firstName + " " + lastName).trim(),
+      role: role,
+      token: Utilities.base64Encode(email + ":" + role + ":" + new Date().getTime())
+    }
+  };
 }
 
 function getTasks(ss, requesterEmail, requesterRole) {
@@ -806,8 +844,15 @@ function markNotificationRead(ss, email, notificationId) {
 function provisionRecoveryAdmin(ss) {
   var sheet = ss.getSheetByName(CONFIG.USERS_SHEET);
   var data = sheet.getDataRange().getValues();
+  if (!data.length || data[0].every(function(value) { return String(value).trim() === ""; })) {
+    sheet.getRange(1, 1, 1, 5).setValues([["f_name", "l_name", "role", "email", "password"]]);
+    data = sheet.getDataRange().getValues();
+  }
   var headers = data[0].map(function(h) { return String(h).trim(); });
   var emailCol = headers.indexOf("email");
+  if (emailCol === -1) {
+    return { success: false, message: "Users sheet must include an email header" };
+  }
 
   for (var i = 1; i < data.length; i++) {
     if (String(data[i][emailCol] || "").trim().toLowerCase() === CONFIG.RECOVERY_ADMIN_EMAIL.toLowerCase()) {

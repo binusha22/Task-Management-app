@@ -145,5 +145,5 @@ $BUILD_TOOLS = "C:\Users\USHAN\AppData\Local\Android\Sdk\build-tools\35.0.0"
 For emergency account recovery:
 - **Email**: `admin@gmail.com`
 - **Initial Password**: `admin123`
-- Can be provisioned via the **System Setup** screen button or automatically through `backend/Code.gs` (`provision_recovery_admin`).
+- If this account is missing from the `Users` sheet, logging in with these credentials provisions it automatically. It can also be provisioned via the **System Setup** screen button.
 - The user is prompted to change this password on the profile screen upon login.
