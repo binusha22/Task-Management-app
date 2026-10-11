@@ -2,8 +2,11 @@ package com.gms.taskmanagement.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,6 +40,7 @@ import com.gms.taskmanagement.settings.SettingsActivity;
 import com.gms.taskmanagement.tasks.NewTaskActivity;
 import com.gms.taskmanagement.tasks.TaskDetailActivity;
 import com.gms.taskmanagement.users.UserManagementActivity;
+import com.gms.taskmanagement.utils.Constants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -62,6 +66,17 @@ public class AdminDashboardActivity extends AppCompatActivity implements PopupMe
     private TaskAdapter taskAdapter;
     private final List<Task> allTasks = new ArrayList<>();
     private final List<Task> filteredTasks = new ArrayList<>();
+    private final Handler refreshHandler = new Handler(Looper.getMainLooper());
+    private boolean dashboardRequestInFlight;
+    private boolean notificationsRequestInFlight;
+    private final Runnable refreshRunnable = new Runnable() {
+        @Override
+        public void run() {
+            loadDashboardData(false);
+            loadNotificationBadge();
+            refreshHandler.postDelayed(this, Constants.REFRESH_INTERVAL_MS);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +95,20 @@ public class AdminDashboardActivity extends AppCompatActivity implements PopupMe
         setupRecyclerView();
         setupFilters();
         setupQuickActions();
-        loadDashboardData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadDashboardData();
+        loadDashboardData(true);
+        loadNotificationBadge();
+        refreshHandler.postDelayed(refreshRunnable, Constants.REFRESH_INTERVAL_MS);
+    }
+
+    @Override
+    protected void onPause() {
+        refreshHandler.removeCallbacks(refreshRunnable);
+        super.onPause();
     }
 
     private void initViews() {
@@ -174,10 +196,20 @@ public class AdminDashboardActivity extends AppCompatActivity implements PopupMe
     }
 
     private void loadDashboardData() {
-        String backendUrl = sessionManager.getBackendUrl();
-        if (backendUrl.isEmpty()) return;
+        loadDashboardData(true);
+    }
 
-        adminTasksProgressBar.setVisibility(View.VISIBLE);
+    private void loadDashboardData(boolean showProgress) {
+        if (dashboardRequestInFlight) return;
+
+        String backendUrl = sessionManager.getBackendUrl();
+        if (backendUrl.isEmpty()) {
+            adminSwipeRefreshLayout.setRefreshing(false);
+            return;
+        }
+
+        dashboardRequestInFlight = true;
+        if (showProgress) adminTasksProgressBar.setVisibility(View.VISIBLE);
 
         JSONObject params = new JSONObject();
         try {
@@ -189,6 +221,7 @@ public class AdminDashboardActivity extends AppCompatActivity implements PopupMe
         ApiClient.post(backendUrl, params, new ApiCallback() {
             @Override
             public void onSuccess(ApiResponse response) {
+                dashboardRequestInFlight = false;
                 adminTasksProgressBar.setVisibility(View.GONE);
                 adminSwipeRefreshLayout.setRefreshing(false);
 
@@ -218,42 +251,99 @@ public class AdminDashboardActivity extends AppCompatActivity implements PopupMe
 
                     calculateMetrics();
                     applyFilters();
-                } else {
+                } else if (showProgress) {
                     Toast.makeText(AdminDashboardActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.w("AdminDashboard", "Task refresh failed: " + response.getMessage());
                 }
             }
 
             @Override
             public void onError(String errorMessage) {
+                dashboardRequestInFlight = false;
                 adminTasksProgressBar.setVisibility(View.GONE);
                 adminSwipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(AdminDashboardActivity.this, "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
+                if (showProgress) {
+                    Toast.makeText(AdminDashboardActivity.this, "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.w("AdminDashboard", "Task refresh failed: " + errorMessage);
+                }
             }
         });
 
-        // Also fetch total user count
-        JSONObject userParams = new JSONObject();
+        if (showProgress) {
+            JSONObject userParams = new JSONObject();
+            try {
+                userParams.put("action", "get_users");
+                userParams.put("email", sessionManager.getUserEmail());
+                userParams.put("role", "Admin");
+            } catch (Exception ignored) {}
+
+            ApiClient.post(backendUrl, userParams, new ApiCallback() {
+                @Override
+                public void onSuccess(ApiResponse response) {
+                    if (response.isSuccess()) {
+                        try {
+                            JSONObject json = new JSONObject(response.getRawJson());
+                            JSONArray arr = json.optJSONArray("data");
+                            if (arr != null) {
+                                tvAdminTotalUsers.setText(String.valueOf(arr.length()));
+                            }
+                        } catch (Exception ignored) {}
+                    } else {
+                        Log.w("AdminDashboard", "User count refresh failed: " + response.getMessage());
+                    }
+                }
+
+                @Override
+                public void onError(String errorMessage) {
+                    Log.w("AdminDashboard", "User count refresh failed: " + errorMessage);
+                }
+            });
+        }
+    }
+
+    private void loadNotificationBadge() {
+        String backendUrl = sessionManager.getBackendUrl();
+        if (backendUrl.isEmpty() || notificationsRequestInFlight) return;
+
+        notificationsRequestInFlight = true;
+        JSONObject params = new JSONObject();
         try {
-            userParams.put("action", "get_users");
-            userParams.put("email", sessionManager.getUserEmail());
-            userParams.put("role", "Admin");
+            params.put("action", "get_notifications");
+            params.put("email", sessionManager.getUserEmail());
         } catch (Exception ignored) {}
 
-        ApiClient.post(backendUrl, userParams, new ApiCallback() {
+        ApiClient.post(backendUrl, params, new ApiCallback() {
             @Override
             public void onSuccess(ApiResponse response) {
-                if (response.isSuccess()) {
-                    try {
-                        JSONObject json = new JSONObject(response.getRawJson());
-                        JSONArray arr = json.optJSONArray("data");
-                        if (arr != null) {
-                            tvAdminTotalUsers.setText(String.valueOf(arr.length()));
-                        }
-                    } catch (Exception ignored) {}
+                notificationsRequestInFlight = false;
+                if (!response.isSuccess()) {
+                    Log.w("AdminDashboard", "Notification refresh failed: " + response.getMessage());
+                    return;
                 }
+
+                int unreadCount = 0;
+                try {
+                    JSONArray notifications = new JSONObject(response.getRawJson()).optJSONArray("data");
+                    if (notifications != null) {
+                        for (int i = 0; i < notifications.length(); i++) {
+                            if (!notifications.getJSONObject(i).optBoolean("isRead", false)) {
+                                unreadCount++;
+                            }
+                        }
+                    }
+                } catch (Exception ignored) {}
+
+                tvNotificationBadge.setText(unreadCount > 9 ? "9+" : String.valueOf(unreadCount));
+                tvNotificationBadge.setVisibility(unreadCount > 0 ? View.VISIBLE : View.GONE);
             }
+
             @Override
-            public void onError(String errorMessage) {}
+            public void onError(String errorMessage) {
+                notificationsRequestInFlight = false;
+                Log.w("AdminDashboard", "Notification refresh failed: " + errorMessage);
+            }
         });
     }
 

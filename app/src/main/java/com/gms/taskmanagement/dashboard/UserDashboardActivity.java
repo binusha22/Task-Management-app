@@ -2,8 +2,11 @@ package com.gms.taskmanagement.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,6 +37,7 @@ import com.gms.taskmanagement.profile.ProfileActivity;
 import com.gms.taskmanagement.settings.SettingsActivity;
 import com.gms.taskmanagement.tasks.NewTaskActivity;
 import com.gms.taskmanagement.tasks.TaskDetailActivity;
+import com.gms.taskmanagement.utils.Constants;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -58,6 +62,17 @@ public class UserDashboardActivity extends AppCompatActivity implements PopupMen
     private TaskAdapter taskAdapter;
     private final List<Task> allTasks = new ArrayList<>();
     private final List<Task> filteredTasks = new ArrayList<>();
+    private final Handler refreshHandler = new Handler(Looper.getMainLooper());
+    private boolean tasksRequestInFlight;
+    private boolean notificationsRequestInFlight;
+    private final Runnable refreshRunnable = new Runnable() {
+        @Override
+        public void run() {
+            loadTasks(false);
+            loadNotificationBadge();
+            refreshHandler.postDelayed(this, Constants.REFRESH_INTERVAL_MS);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +90,20 @@ public class UserDashboardActivity extends AppCompatActivity implements PopupMen
         setupHeader();
         setupRecyclerView();
         setupFilters();
-        loadTasks();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        loadTasks();
+        loadTasks(true);
+        loadNotificationBadge();
+        refreshHandler.postDelayed(refreshRunnable, Constants.REFRESH_INTERVAL_MS);
+    }
+
+    @Override
+    protected void onPause() {
+        refreshHandler.removeCallbacks(refreshRunnable);
+        super.onPause();
     }
 
     private void initViews() {
@@ -152,10 +174,20 @@ public class UserDashboardActivity extends AppCompatActivity implements PopupMen
     }
 
     private void loadTasks() {
-        String backendUrl = sessionManager.getBackendUrl();
-        if (backendUrl.isEmpty()) return;
+        loadTasks(true);
+    }
 
-        tasksProgressBar.setVisibility(View.VISIBLE);
+    private void loadTasks(boolean showProgress) {
+        if (tasksRequestInFlight) return;
+
+        String backendUrl = sessionManager.getBackendUrl();
+        if (backendUrl.isEmpty()) {
+            swipeRefreshLayout.setRefreshing(false);
+            return;
+        }
+
+        tasksRequestInFlight = true;
+        if (showProgress) tasksProgressBar.setVisibility(View.VISIBLE);
 
         JSONObject params = new JSONObject();
         try {
@@ -167,6 +199,7 @@ public class UserDashboardActivity extends AppCompatActivity implements PopupMen
         ApiClient.post(backendUrl, params, new ApiCallback() {
             @Override
             public void onSuccess(ApiResponse response) {
+                tasksRequestInFlight = false;
                 tasksProgressBar.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
 
@@ -197,15 +230,65 @@ public class UserDashboardActivity extends AppCompatActivity implements PopupMen
                     updateStats();
                     applyFilters();
                 } else {
-                    Toast.makeText(UserDashboardActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    if (showProgress) {
+                        Toast.makeText(UserDashboardActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.w("UserDashboard", "Task refresh failed: " + response.getMessage());
+                    }
                 }
             }
 
             @Override
             public void onError(String errorMessage) {
+                tasksRequestInFlight = false;
                 tasksProgressBar.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(UserDashboardActivity.this, "Sync error: " + errorMessage, Toast.LENGTH_SHORT).show();
+                if (showProgress) {
+                    Toast.makeText(UserDashboardActivity.this, "Sync error: " + errorMessage, Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.w("UserDashboard", "Task refresh failed: " + errorMessage);
+                }
+            }
+        });
+    }
+
+    private void loadNotificationBadge() {
+        String backendUrl = sessionManager.getBackendUrl();
+        if (backendUrl.isEmpty() || notificationsRequestInFlight) return;
+
+        notificationsRequestInFlight = true;
+        JSONObject params = new JSONObject();
+        try {
+            params.put("action", "get_notifications");
+            params.put("email", sessionManager.getUserEmail());
+        } catch (Exception ignored) {}
+
+        ApiClient.post(backendUrl, params, new ApiCallback() {
+            @Override
+            public void onSuccess(ApiResponse response) {
+                notificationsRequestInFlight = false;
+                if (!response.isSuccess()) return;
+
+                int unreadCount = 0;
+                try {
+                    JSONArray notifications = new JSONObject(response.getRawJson()).optJSONArray("data");
+                    if (notifications != null) {
+                        for (int i = 0; i < notifications.length(); i++) {
+                            if (!notifications.getJSONObject(i).optBoolean("isRead", false)) {
+                                unreadCount++;
+                            }
+                        }
+                    }
+                } catch (Exception ignored) {}
+
+                tvNotificationBadge.setText(unreadCount > 9 ? "9+" : String.valueOf(unreadCount));
+                tvNotificationBadge.setVisibility(unreadCount > 0 ? View.VISIBLE : View.GONE);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                notificationsRequestInFlight = false;
+                Log.w("UserDashboard", "Notification refresh failed: " + errorMessage);
             }
         });
     }

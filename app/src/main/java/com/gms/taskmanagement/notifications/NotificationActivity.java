@@ -1,6 +1,9 @@
 package com.gms.taskmanagement.notifications;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -17,6 +20,7 @@ import com.gms.taskmanagement.api.ApiResponse;
 import com.gms.taskmanagement.api.ApiCallback;
 import com.gms.taskmanagement.auth.SessionManager;
 import com.gms.taskmanagement.models.AppNotification;
+import com.gms.taskmanagement.utils.Constants;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -33,6 +37,15 @@ public class NotificationActivity extends AppCompatActivity {
 
     private NotificationAdapter adapter;
     private final List<AppNotification> notificationList = new ArrayList<>();
+    private final Handler refreshHandler = new Handler(Looper.getMainLooper());
+    private boolean notificationsRequestInFlight;
+    private final Runnable refreshRunnable = new Runnable() {
+        @Override
+        public void run() {
+            loadNotifications(false);
+            refreshHandler.postDelayed(this, Constants.REFRESH_INTERVAL_MS);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +56,19 @@ public class NotificationActivity extends AppCompatActivity {
 
         initViews();
         setupRecyclerView();
-        loadNotifications();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadNotifications(true);
+        refreshHandler.postDelayed(refreshRunnable, Constants.REFRESH_INTERVAL_MS);
+    }
+
+    @Override
+    protected void onPause() {
+        refreshHandler.removeCallbacks(refreshRunnable);
+        super.onPause();
     }
 
     private void initViews() {
@@ -64,7 +89,14 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void loadNotifications() {
-        notifProgressBar.setVisibility(View.VISIBLE);
+        loadNotifications(true);
+    }
+
+    private void loadNotifications(boolean showProgress) {
+        if (notificationsRequestInFlight) return;
+
+        notificationsRequestInFlight = true;
+        if (showProgress) notifProgressBar.setVisibility(View.VISIBLE);
 
         JSONObject params = new JSONObject();
         try {
@@ -75,6 +107,7 @@ public class NotificationActivity extends AppCompatActivity {
         ApiClient.post(sessionManager.getBackendUrl(), params, new ApiCallback() {
             @Override
             public void onSuccess(ApiResponse response) {
+                notificationsRequestInFlight = false;
                 notifProgressBar.setVisibility(View.GONE);
                 notifSwipeRefresh.setRefreshing(false);
 
@@ -102,15 +135,24 @@ public class NotificationActivity extends AppCompatActivity {
                     adapter.setNotifications(notificationList);
                     tvEmptyNotifs.setVisibility(notificationList.isEmpty() ? View.VISIBLE : View.GONE);
                 } else {
-                    Toast.makeText(NotificationActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    if (showProgress) {
+                        Toast.makeText(NotificationActivity.this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.w("NotificationActivity", "Notification refresh failed: " + response.getMessage());
+                    }
                 }
             }
 
             @Override
             public void onError(String errorMessage) {
+                notificationsRequestInFlight = false;
                 notifProgressBar.setVisibility(View.GONE);
                 notifSwipeRefresh.setRefreshing(false);
-                Toast.makeText(NotificationActivity.this, "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
+                if (showProgress) {
+                    Toast.makeText(NotificationActivity.this, "Error: " + errorMessage, Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.w("NotificationActivity", "Notification refresh failed: " + errorMessage);
+                }
             }
         });
     }

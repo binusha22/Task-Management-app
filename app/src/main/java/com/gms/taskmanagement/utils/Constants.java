@@ -1,6 +1,8 @@
 package com.gms.taskmanagement.utils;
 
 public class Constants {
+    public static final long REFRESH_INTERVAL_MS = 5000;
+
     public static final String PREF_NAME = "gms_task_prefs";
     public static final String KEY_BACKEND_URL = "backend_url";
     public static final String KEY_USERS_SHEET = "users_sheet_name";
