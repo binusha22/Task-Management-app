@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/btnBackNewTask"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="Back"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create New Task"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginStart="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="18dp">
+
+            <!-- Ticket Number (Read-only) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ticket Number (Auto-Generated)"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etTicketNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edit_text"
+                android:text="Generating..."
+                android:enabled="false"
+                android:textColor="@color/primary"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <!-- Select Employee -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Employee *"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="4dp" />
+
+            <Spinner
+                android:id="@+id/spSelectEmployee"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_edit_text" />
+
+            <!-- Job Type -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Job Type *"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="4dp" />
+
+            <Spinner
+                android:id="@+id/spJobType"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_edit_text" />
+
+            <!-- Date of Perform -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date of Perform *"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etDateOfPerform"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edit_text"
+                android:hint="YYYY-MM-DD"
+                android:focusable="false"
+                android:clickable="true"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary" />
+
+            <!-- Employee Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Employee Name(s) Involved"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etEmployeeName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edit_text"
+                android:hint="e.g. sachini, chayni, achichi"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary" />
+
+            <!-- Department List -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Department *"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="4dp" />
+
+            <Spinner
+                android:id="@+id/spDepartment"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_edit_text" />
+
+            <!-- Description of the Task -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description of the Task *"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etTaskDescription"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/bg_edit_text"
+                android:hint="Describe the work performed or needed..."
+                android:gravity="top|start"
+                android:inputType="textMultiLine"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary" />
+
+            <!-- Status (default Pending) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="4dp" />
+
+            <Spinner
+                android:id="@+id/spTaskStatus"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_edit_text" />
+
+            <Button
+                android:id="@+id/btnSubmitTask"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Save &amp; Submit Task"
+                android:background="@drawable/bg_button_primary"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_marginTop="24dp" />
+
+            <ProgressBar
+                android:id="@+id/submitProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                android:layout_marginTop="12dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:background="@color/surface">
+
+    <ImageView
+        android:id="@+id/ivSplashLogo"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/app_logo"
+        android:contentDescription="@string/app_name"
+        android:adjustViewBounds="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary_dark"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Employee Task Management System"
+        android:textSize="14sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginTop="6dp" />
+
+    <ProgressBar
+        android:id="@+id/splashProgress"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:indeterminateTint="@color/primary"
+        android:layout_marginTop="40dp" />
+
+    <TextView
+        android:id="@+id/tvSplashStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Initializing..."
+        android:textSize="12sp"
+        android:textColor="@color/text_hint"
+        android:layout_marginTop="12dp" />
+
+</LinearLayout>

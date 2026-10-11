@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_card"
+    android:padding="14dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    android:elevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvNotifTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="New Task Created: ITM 2026-15"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
+
+        <View
+            android:id="@+id/viewUnreadDot"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/bg_chip"
+            android:backgroundTint="@color/primary"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvNotifMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Binusha Perera submitted a task for Network Cabling / Route"
+        android:textSize="13sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/tvNotifTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2026-10-09 15:03:56"
+        android:textSize="11sp"
+        android:textColor="@color/text_hint"
+        android:layout_marginTop="6dp" />
+
+</LinearLayout>

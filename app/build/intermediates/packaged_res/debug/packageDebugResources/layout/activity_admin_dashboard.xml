@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Top Header -->
+        <include layout="@layout/layout_header" />
+
+        <!-- Summary Cards Grid -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="4dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_marginEnd="4dp">
+
+                <TextView
+                    android:id="@+id/tvAdminTotalUsers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Users"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp">
+
+                <TextView
+                    android:id="@+id/tvAdminTotalTasks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp">
+
+                <TextView
+                    android:id="@+id/tvAdminPendingTasks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/status_pending" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pending"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp">
+
+                <TextView
+                    android:id="@+id/tvAdminInProgressTasks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/status_inprogress" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="In Prog"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:padding="8dp"
+                android:gravity="center"
+                android:layout_marginStart="4dp">
+
+                <TextView
+                    android:id="@+id/tvAdminCompletedTasks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/status_completed" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Done"
+                    android:textSize="10sp"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Admin Quick Actions Bar -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnQuickUsers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="Users"
+                    android:textSize="11sp"
+                    android:background="@drawable/bg_button_secondary"
+                    android:textColor="@color/white"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:layout_marginEnd="6dp" />
+
+                <Button
+                    android:id="@+id/btnQuickReports"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="Reports"
+                    android:textSize="11sp"
+                    android:background="@drawable/bg_button_secondary"
+                    android:textColor="@color/white"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:layout_marginEnd="6dp" />
+
+                <Button
+                    android:id="@+id/btnQuickEditRequests"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="Edit Requests"
+                    android:textSize="11sp"
+                    android:background="@drawable/bg_button_secondary"
+                    android:textColor="@color/white"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:layout_marginEnd="6dp" />
+
+                <Button
+                    android:id="@+id/btnQuickSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="Settings"
+                    android:textSize="11sp"
+                    android:background="@drawable/bg_button_secondary"
+                    android:textColor="@color/white"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Search Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="6dp"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/etAdminSearchTasks"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit_text"
+                android:hint="Search all employee tasks..."
+                android:textSize="13sp"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="8dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:singleLine="true" />
+
+            <Spinner
+                android:id="@+id/spAdminFilterStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_button_secondary" />
+        </LinearLayout>
+
+        <!-- All Tasks Recycler with Swipe Refresh -->
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/adminSwipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAdminTasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingBottom="80dp" />
+
+                <LinearLayout
+                    android:id="@+id/layoutAdminEmptyState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No tasks found"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_secondary" />
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/adminTasksProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAdminAddTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/primary"
+        app:tint="@color/white"
+        android:contentDescription="@string/new_task" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

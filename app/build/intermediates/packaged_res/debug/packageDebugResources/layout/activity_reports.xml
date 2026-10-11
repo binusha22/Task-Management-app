@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Top Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/btnBackReports"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="Back"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Reports &amp; Analytics"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginStart="12dp" />
+
+            <Button
+                android:id="@+id/btnExportCsv"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="Export CSV"
+                android:textSize="12sp"
+                android:background="@drawable/bg_button_secondary"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Status Summary Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="16dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Task Status Distribution"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:id="@+id/tvReportPending"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pending Tasks: 0"
+                android:textSize="13sp"
+                android:textColor="@color/status_pending"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvReportInProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="In Progress Tasks: 0"
+                android:textSize="13sp"
+                android:textColor="@color/status_inprogress"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvReportCompleted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Completed Tasks: 0"
+                android:textSize="13sp"
+                android:textColor="@color/status_completed"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvReportTotal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total Recorded Tasks: 0"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <!-- Tasks by Department Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="16dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tasks by Department"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvReportByDepartment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Loading..."
+                android:textSize="13sp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="@color/text_secondary" />
+        </LinearLayout>
+
+        <!-- Tasks by Employee Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="16dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tasks by Employee"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvReportByEmployee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Loading..."
+                android:textSize="13sp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="@color/text_secondary" />
+        </LinearLayout>
+
+        <!-- Tasks by Job Type Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="16dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tasks by Job Type"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvReportByJobType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Loading..."
+                android:textSize="13sp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="@color/text_secondary" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/reportsProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+</ScrollView>

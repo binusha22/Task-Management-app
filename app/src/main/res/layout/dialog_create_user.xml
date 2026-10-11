@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@drawable/bg_card">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Employee Account"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add authorized user directly to Users spreadsheet"
+        android:textSize="13sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginTop="4dp" />
+
+    <EditText
+        android:id="@+id/etNewUserFirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edit_text"
+        android:hint="First Name (e.g. Athif)"
+        android:textSize="14sp"
+        android:textColor="@color/text_primary"
+        android:layout_marginTop="12dp" />
+
+    <EditText
+        android:id="@+id/etNewUserLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edit_text"
+        android:hint="Last Name (e.g. Shaheer)"
+        android:textSize="14sp"
+        android:textColor="@color/text_primary"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:id="@+id/etNewUserEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edit_text"
+        android:hint="Email (e.g. shaheer@gmail.com)"
+        android:inputType="textEmailAddress"
+        android:textSize="14sp"
+        android:textColor="@color/text_primary"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:id="@+id/etNewUserPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edit_text"
+        android:hint="Initial Password"
+        android:inputType="textPassword"
+        android:textSize="14sp"
+        android:textColor="@color/text_primary"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Role"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="4dp" />
+
+    <Spinner
+        android:id="@+id/spNewUserRole"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/bg_edit_text" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="18dp">
+
+        <Button
+            android:id="@+id/btnCancelCreateUser"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Cancel"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/text_secondary"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btnConfirmCreateUser"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Create Account"
+            android:background="@drawable/bg_button_primary"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

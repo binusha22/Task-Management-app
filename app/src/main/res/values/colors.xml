@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#1A56DB</color>
+    <color name="primary_dark">#1E429F</color>
+    <color name="primary_light">#EBF5FF</color>
+    <color name="accent">#0E9F6E</color>
+    <color name="background">#F9FAFB</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="text_primary">#111928</color>
+    <color name="text_secondary">#6B7280</color>
+    <color name="text_hint">#9CA3AF</color>
+    <color name="border">#E5E7EB</color>
+    <color name="divider">#F3F4F6</color>
+    
+    <!-- Status colors -->
+    <color name="status_pending">#F59E0B</color>
+    <color name="status_pending_bg">#FEF3C7</color>
+    <color name="status_inprogress">#3B82F6</color>
+    <color name="status_inprogress_bg">#DBEAFE</color>
+    <color name="status_completed">#10B981</color>
+    <color name="status_completed_bg">#D1FAE5</color>
+    <color name="status_rejected">#EF4444</color>
+    <color name="status_rejected_bg">#FEE2E2</color>
+    
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

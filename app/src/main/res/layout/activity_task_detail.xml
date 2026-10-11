@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Top bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/btnBackDetail"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="Back"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+
+            <TextView
+                android:id="@+id/tvDetailTitleTicket"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ITM 2026-15"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginStart="12dp" />
+
+            <TextView
+                android:id="@+id/tvDetailStatusChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Completed"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:background="@drawable/bg_chip"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="18dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Job Type"
+                android:textSize="11sp"
+                android:textColor="@color/text_hint" />
+
+            <TextView
+                android:id="@+id/tvDetailJobType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Network Cabling / Route"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Employee (Primary)"
+                android:textSize="11sp"
+                android:textColor="@color/text_hint" />
+
+            <TextView
+                android:id="@+id/tvDetailSelectEmployee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Binusha Perera"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Employee Name(s) Involved"
+                android:textSize="11sp"
+                android:textColor="@color/text_hint" />
+
+            <TextView
+                android:id="@+id/tvDetailEmployeeName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="sachini, chayni, achichi"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Department"
+                android:textSize="11sp"
+                android:textColor="@color/text_hint" />
+
+            <TextView
+                android:id="@+id/tvDetailDepartment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Accounts / Finance"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date of Perform"
+                android:textSize="11sp"
+                android:textColor="@color/text_hint" />
+
+            <TextView
+                android:id="@+id/tvDetailDateOfPerform"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2026-10-09"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submission Timestamp"
+                android:textSize="11sp"
+                android:textColor="@color/text_hint" />
+
+            <TextView
+                android:id="@+id/tvDetailTimestamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="10/9/2026 15:03:56"
+                android:textSize="13sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description of the Task"
+                android:textSize="11sp"
+                android:textColor="@color/text_hint" />
+
+            <TextView
+                android:id="@+id/tvDetailDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Readded ip tp the pc network"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"
+                android:background="@drawable/bg_edit_text"
+                android:padding="12dp"
+                android:layout_marginTop="4dp" />
+
+            <!-- Admin Status Control Section -->
+            <LinearLayout
+                android:id="@+id/layoutAdminStatusControl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update Task Status (Admin)"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_primary"
+                    android:layout_marginBottom="4dp" />
+
+                <Spinner
+                    android:id="@+id/spDetailAdminStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:background="@drawable/bg_edit_text" />
+
+                <Button
+                    android:id="@+id/btnAdminUpdateStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:text="Save Status Change"
+                    android:background="@drawable/bg_button_primary"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+            <!-- Actions container -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <Button
+                    android:id="@+id/btnRequestEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Request Edit for Completed Task"
+                    android:background="@drawable/bg_button_secondary"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    android:layout_marginBottom="8dp" />
+
+                <Button
+                    android:id="@+id/btnDeleteTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Delete Task"
+                    android:background="@drawable/bg_button_secondary"
+                    android:textColor="@color/status_rejected"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/detailProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone"
+                android:layout_marginTop="12dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

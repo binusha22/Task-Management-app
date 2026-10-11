@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Top Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/btnBackSettings"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="Back"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="System Settings"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginStart="12dp" />
+        </LinearLayout>
+
+        <!-- ── Google Apps Script / Sheets Config Card ── -->
+        <LinearLayout
+            android:id="@+id/layoutAdminSheetsConfig"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="18dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Google Sheets Data Source"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Backend URL -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Google Apps Script Web App URL"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etSettingsBackendUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edit_text"
+                android:hint="https://script.google.com/macros/s/.../exec"
+                android:inputType="textUri"
+                android:textSize="13sp"
+                android:textColor="@color/text_primary" />
+
+            <!-- Users Sheet -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Users Sheet Name"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_secondary"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etSettingsUsersSheet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edit_text"
+                android:hint="Users"
+                android:textSize="13sp"
+                android:textColor="@color/text_primary" />
+
+            <!-- Tasks Sheet -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Task Management Sheet Name"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_secondary"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etSettingsTasksSheet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edit_text"
+                android:hint="Form Responses 1"
+                android:textSize="13sp"
+                android:textColor="@color/text_primary" />
+
+            <!-- Test + Save buttons -->
+            <Button
+                android:id="@+id/btnSettingsTestConnection"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:text="Test Connection"
+                android:background="@drawable/bg_button_secondary"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginTop="14dp" />
+
+            <Button
+                android:id="@+id/btnSettingsSaveConfig"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:text="Save Configuration"
+                android:background="@drawable/bg_button_primary"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/tvSettingsConnectionStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="12sp"
+                android:gravity="center"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <!-- ── Firebase Credentials Card ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="18dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Firebase Cloud Messaging"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Required for push notifications. Obtain the Server Key from Firebase Console → Project Settings → Cloud Messaging."
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FCM Server Key (Legacy)"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="4dp" />
+
+            <EditText
+                android:id="@+id/etSettingsFcmServerKey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edit_text"
+                android:hint="AAAAxxxxxxxx:APA91b..."
+                android:inputType="textVisiblePassword"
+                android:textSize="13sp"
+                android:textColor="@color/text_primary" />
+
+        </LinearLayout>
+
+        <!-- ── Connected Sheets Info Card ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="18dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Connected Sheet Names"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="These are the exact sheet tab names used by the Apps Script backend."
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="• Users → Users\n• Tasks → Form Responses 1\n• Edit Requests → Edit_Requests\n• Notifications → Notifications\n• Config Lists → Config_Lists"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary"
+                android:lineSpacingExtra="4dp" />
+        </LinearLayout>
+
+        <!-- ── App Info Card ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card"
+            android:padding="16dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GMS Task Management — Android Native"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Version 1.0.0 (Lanka Salt Ltd Edition)"
+                android:textSize="12sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
+

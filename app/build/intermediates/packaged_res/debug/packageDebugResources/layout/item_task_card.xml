@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_card"
+    android:padding="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:elevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvTicketNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ITM 2026-15"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary" />
+
+        <TextView
+            android:id="@+id/tvStatusChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Completed"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_chip"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvJobType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Network Cabling / Route"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:layout_marginTop="6dp" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Readded ip tp the pc network"
+        android:textSize="13sp"
+        android:textColor="@color/text_secondary"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:layout_marginTop="4dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Department"
+                android:textSize="11sp"
+                android:textColor="@color/text_hint" />
+
+            <TextView
+                android:id="@+id/tvDepartment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Accounts / Finance"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Performed On"
+                android:textSize="11sp"
+                android:textColor="@color/text_hint" />
+
+            <TextView
+                android:id="@+id/tvDateOfPerform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2026-10-09"
+                android:textSize="12sp"
+                android:textColor="@color/text_primary" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvSubmittedTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submitted: 10/9/2026 15:03:56"
+        android:textSize="11sp"
+        android:textColor="@color/text_hint"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

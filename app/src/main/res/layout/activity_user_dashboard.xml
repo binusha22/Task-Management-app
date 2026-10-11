@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Top Header -->
+        <include layout="@layout/layout_header" />
+
+        <!-- Quick Stats Cards -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="4dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_marginEnd="6dp">
+
+                <TextView
+                    android:id="@+id/tvStatPending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/status_pending" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pending"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp">
+
+                <TextView
+                    android:id="@+id/tvStatInProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/status_inprogress" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="In Progress"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/bg_card"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_marginStart="6dp">
+
+                <TextView
+                    android:id="@+id/tvStatCompleted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/status_completed" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Completed"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_secondary" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Search Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/etSearchTasks"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit_text"
+                android:hint="Search tasks..."
+                android:textSize="13sp"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="8dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:singleLine="true" />
+
+            <Spinner
+                android:id="@+id/spFilterStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_button_secondary" />
+        </LinearLayout>
+
+        <!-- Task List with Swipe Refresh -->
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingBottom="80dp" />
+
+                <LinearLayout
+                    android:id="@+id/layoutEmptyState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No tasks found"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_secondary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tap + to submit your first task"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_hint"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/tasksProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/primary"
+        app:tint="@color/white"
+        android:contentDescription="@string/new_task" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

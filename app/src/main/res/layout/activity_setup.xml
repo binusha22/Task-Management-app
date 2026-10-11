@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/app_logo"
+            android:contentDescription="@string/app_name"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/setup_title"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/setup_subtitle"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Google Apps Script Web App URL"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="6dp" />
+
+        <EditText
+            android:id="@+id/etBackendUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text"
+            android:hint="https://script.google.com/macros/s/.../exec"
+            android:inputType="textUri"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Users Worksheet Name"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="6dp" />
+
+        <EditText
+            android:id="@+id/etUsersSheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text"
+            android:text="Users"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task Management Worksheet Name"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="6dp" />
+
+        <EditText
+            android:id="@+id/etTasksSheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text"
+            android:text="Form_Responses"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary" />
+
+        <Button
+            android:id="@+id/btnTestConnection"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Test Connection"
+            android:background="@drawable/bg_button_secondary"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/tvConnectionStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="13sp"
+            android:gravity="center"
+            android:layout_marginTop="12dp" />
+
+        <ProgressBar
+            android:id="@+id/setupProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            android:layout_marginTop="12dp" />
+
+        <Button
+            android:id="@+id/btnSaveConfig"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Save Configuration &amp; Continue"
+            android:background="@drawable/bg_button_primary"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp" />
+
+        <Button
+            android:id="@+id/btnProvisionRecovery"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:text="Provision Emergency Admin"
+            android:background="@android:color/transparent"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:layout_marginTop="12dp" />
+
+    </LinearLayout>
+</ScrollView>
